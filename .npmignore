@@ -1,0 +1,13 @@
+.cache
+coverage
+node_modules
+test
+
+.editorconfig
+.gitignore
+.eslintrc
+.prettierrc.json
+package-lock.json
+.idea
+.github
+rollup.config.js
