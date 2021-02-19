@@ -31,9 +31,9 @@ test:
     PUPPETEER_SKIP_FIREFOX_DOWNLOAD: "true"
   before_script:
     - apk add chromium chromium-chromedriver firefox
+  script:
     - npm install
     - npm run build
-  script:
     - npm test
     - PUPPETEER_PRODUCT=firefox npm test
 
@@ -45,8 +45,8 @@ release:
   before_script:
     - echo '@drupal:registry=https://registry.npmjs.org/' > ~/.npmrc
     - echo '//registry.npmjs.org/:_authToken=${NPM_ACCESS_TOKEN}' >> ~/.npmrc
-    - npm install
-    - npm run build
   script:
+    - npm install
     - npm version $(echo ${CI_COMMIT_TAG} | cut -c2-) --no-git-tag-version
+    - npm run build
     - npm publish --access public
