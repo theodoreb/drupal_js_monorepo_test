@@ -6,26 +6,48 @@ workflow:
 image: node:current-alpine3.12
 
 stages:
-  - build
   - test
+  - release
 
 cache:
   key: ${CI_JOB_NAME}-cache-1611917650
   paths:
     - node_modules
 
+lint:
+  stage: test
+  before_script:
+    - npm install
+  script:
+    - npm run lint
+
 test:
-  stage: build
+  stage: test
   variables:
     CHROME_BIN: "/usr/bin/chromium-browser"
     CHROME_PATH: "/usr/lib/chromium/"
     FIREFOX_BIN: "/usr/bin/firefox"
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
     PUPPETEER_SKIP_FIREFOX_DOWNLOAD: "true"
-  script:
+  before_script:
     - apk add chromium chromium-chromedriver firefox
     - npm install
     - npm run build
-    - npm run lint
+  script:
     - npm test
     - PUPPETEER_PRODUCT=firefox npm test
+
+release:
+  stage: release
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v/'
+      when: always
+  variables:
+    NPM_TOKEN: ${NPM_ACCESS_TOKEN}
+  before_script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm install
+    - npm run build
+  script:
+    - npm version $(echo ${CI_COMMIT_TAG} | cut -c2-) --no-git-tag-version
+    - npm publish --access public

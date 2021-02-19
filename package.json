@@ -2,7 +2,6 @@
   "name": "@drupal/once",
   "title": "once",
   "description": "Act on elements only once.",
-  "version": "0.1.0",
   "keywords": [
     "drupal",
     "dom"
@@ -14,9 +13,8 @@
   "umd": "dist/once.umd.js",
   "browser": "dist/once.min.js",
   "files": [
-    "src",
     "dist",
-    "docs",
+    "src",
     "SECURITY.md"
   ],
   "repository": {
@@ -40,23 +38,15 @@
     "@web/test-runner-puppeteer": "^0.9.1",
     "eslint": "^7.18.0",
     "eslint-config-drupal": "^5.0.2",
-    "jsdoc-to-markdown": "^6.0.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.38.1",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
-    "prebuild": "npm run lint && npm run docs",
     "build": "rimraf dist/* && rollup -c",
-    "pretest": "npm run lint",
-    "test": "web-test-runner 'test/*.test.html' --node-resolve",
-    "validate": "npm test",
-    "lint": "eslint src/ test/ rollup.config.js",
-    "docs": "jsdoc2md src/once.js > docs/API.md",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A dist -f",
-    "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm test && npm run build"
-  },
-  "dependencies": {}
+    "test": "npm run web-test-runner",
+    "lint": "npm run eslint",
+    "eslint": "eslint src/ test/ rollup.config.js",
+    "web-test-runner": "web-test-runner 'test/*.test.html' --node-resolve"
+  }
 }
