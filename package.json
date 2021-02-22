@@ -38,6 +38,7 @@
     "@web/test-runner-puppeteer": "^0.9.1",
     "eslint": "^7.18.0",
     "eslint-config-drupal": "^5.0.2",
+    "jsdoc-to-markdown": "^6.0.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.38.1",
     "rollup-plugin-terser": "^7.0.2"
@@ -47,6 +48,7 @@
     "test": "npm run web-test-runner",
     "lint": "npm run eslint",
     "eslint": "eslint src/ test/ rollup.config.js",
-    "web-test-runner": "web-test-runner 'test/*.test.html' --node-resolve"
+    "web-test-runner": "web-test-runner 'test/*.test.html' --node-resolve",
+    "preversion": "jsdoc2md --template README.hbs --heading-depth 3 --files src/once.js > README.md"
   }
 }
