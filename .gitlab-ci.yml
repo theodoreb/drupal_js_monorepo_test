@@ -1,3 +1,6 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
@@ -44,7 +47,7 @@ test:
     - npm test
     - PUPPETEER_PRODUCT=firefox npm test
 
-security:
+audit:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
     - if: $CI_MERGE_REQUEST_IID
@@ -52,6 +55,17 @@ security:
   stage: test
   script:
     - npm audit --audit-level=low
+
+retire-js-dependency_scanning:
+  stage: test
+  rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED
+      when: never
+    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "push" || $CI_MERGE_REQUEST_IID) &&
+          $GITLAB_FEATURES =~ /\bdependency_scanning\b/ &&
+          $DS_DEFAULT_ANALYZERS =~ /retire.js/
+      exists:
+        - '{package.json,*/package.json,*/*/package.json}'
 
 release:
   stage: release
