@@ -249,7 +249,7 @@ function updateAttribute(element, { add, remove }) {
  * // Single Element.
  * once('my-once-id', document.querySelector('#some-id'));
  * @example <caption>Using a single element</caption>
- * // Once always returns an array, event when passing a single element. Some
+ * // Once always returns an array, even when passing a single element. Some
  * // forms that can be used to keep code readable.
  * // Destructuring:
  * const [myElement] = once('my-once-id', document.body);
