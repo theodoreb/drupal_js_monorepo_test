@@ -5,21 +5,21 @@
  *
  * @example <!-- Use as a module -->
  * <script type="module">
- *   import once from 'https://unpkg.com/@drupal/once@latest/dist/once.esm.js';
+ *   import once from 'https://unpkg.com/@drupal/once/src/once.js';
  *   const elements = once('my-once-id', 'div');
  *   // Initialize elements.
  *   elements.forEach(el => el.innerHTML = 'processed');
  * </script>
  *
  * @example <!-- Use as a regular script -->
- * <script src="https://unpkg.com/@drupal/once@latest/dist/once.min.js"></script>
+ * <script src="https://unpkg.com/@drupal/once"></script>
  * <script>
  *   const elements = once('my-once-id', 'div');
  *   // Initialize elements.
  *   elements.forEach(el => el.innerHTML = 'processed');
  * </script>
  * @example <!-- Using a single element as input-->
- * <script src="https://unpkg.com/@drupal/once@latest/dist/once.min.js"></script>
+ * <script src="https://unpkg.com/@drupal/once"></script>
  * <script>
  *   // once methods always return an array, to simplify the use with a single
  *   // element use destructuring or the shift method.

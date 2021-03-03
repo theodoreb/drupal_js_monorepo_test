@@ -9,8 +9,6 @@
   "homepage": "https://www.drupal.org/project/once",
   "type": "module",
   "main": "src/once.js",
-  "module": "dist/once.esm.js",
-  "umd": "dist/once.umd.js",
   "browser": "dist/once.min.js",
   "files": [
     "dist",
