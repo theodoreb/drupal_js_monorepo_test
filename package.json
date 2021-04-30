@@ -22,12 +22,7 @@
   "bugs": {
     "url": "https://www.drupal.org/project/issues/once"
   },
-  "licenses": [
-    {
-      "type": "GPL-2.0-or-later",
-      "url": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-    }
-  ],
+  "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@open-wc/testing": "^2.5.32",
     "@rollup/plugin-buble": "^0.21.3",
