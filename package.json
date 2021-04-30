@@ -45,7 +45,7 @@
     "test": "npm run web-test-runner",
     "lint": "npm run eslint",
     "eslint": "eslint src/ test/ rollup.config.js",
-    "web-test-runner": "web-test-runner 'test/*.test.html' --node-resolve",
+    "web-test-runner": "web-test-runner \"test/*.test.html\" --node-resolve",
     "preversion": "jsdoc2md --template docs/README.hbs --heading-depth 3 --files src/once.js > README.md"
   }
 }
