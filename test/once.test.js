@@ -159,4 +159,8 @@ describe('once', () => {
       'Selector must not be empty',
     );
   });
+
+  it('Calling once with null (from a querySelector) should return an empty array', () => {
+    expectArrayOfLength(once('test15', null), 0);
+  });
 });

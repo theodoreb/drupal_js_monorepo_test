@@ -137,14 +137,20 @@ function checkElement(itemToCheck) {
  *   An array with the processed Id and the list of elements to process.
  */
 function getElements(selector, context = doc) {
-  if (!selector) {
-    throw new TypeError('Selector must not be empty');
-  }
   // Assume selector is an array-like value.
   let elements = selector;
 
+  // If selector is null it is most likely because of a call to querySelector
+  // that didn't return a result.
+  if (selector === null) {
+    elements = [];
+  }
+  // The selector is undefined, error out.
+  else if (!selector) {
+    throw new TypeError('Selector must not be empty');
+  }
   // This is a selector, query the elements.
-  if (
+  else if (
     typeof selector === 'string' &&
     (context === doc || checkElement(context))
   ) {
