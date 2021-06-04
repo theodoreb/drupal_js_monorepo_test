@@ -13,39 +13,25 @@ stages:
   - test
   - release
 
-cache:
-  key: ${CI_JOB_NAME}-cache-1611917650
-  paths:
-    - node_modules
-
 lint:
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: '$CI_PIPELINE_SOURCE == "push"'
   stage: test
-  before_script:
-    - npm install
   script:
-    - npm run lint
+    - yarn install --immutable --immutable-cache --check-cache
+    - yarn lint
 
 test:
   rules:
     - if: $CI_MERGE_REQUEST_IID
     - if: '$CI_PIPELINE_SOURCE == "push"'
   stage: test
-  variables:
-    CHROME_BIN: "/usr/bin/chromium-browser"
-    CHROME_PATH: "/usr/lib/chromium/"
-    FIREFOX_BIN: "/usr/bin/firefox"
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
-    PUPPETEER_SKIP_FIREFOX_DOWNLOAD: "true"
-  before_script:
-    - apk add chromium chromium-chromedriver firefox
+  image: mcr.microsoft.com/playwright:focal
   script:
-    - npm install
-    - npm run build
-    - npm test
-    - PUPPETEER_PRODUCT=firefox npm test
+    - yarn install --immutable --immutable-cache --check-cache
+    - yarn build
+    - yarn test
 
 audit:
   rules:
@@ -54,16 +40,17 @@ audit:
     - if: '$CI_PIPELINE_SOURCE == "push"'
   stage: test
   script:
-    - npm audit --audit-level=low
+    - yarn npm audit --severity low
 
 retire-js-dependency_scanning:
   stage: test
   rules:
     - if: $DEPENDENCY_SCANNING_DISABLED
       when: never
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "push" || $CI_MERGE_REQUEST_IID) &&
-          $GITLAB_FEATURES =~ /\bdependency_scanning\b/ &&
-          $DS_DEFAULT_ANALYZERS =~ /retire.js/
+    - if:
+        ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "push" || $CI_MERGE_REQUEST_IID) &&
+        $GITLAB_FEATURES =~ /\bdependency_scanning\b/ &&
+        $DS_DEFAULT_ANALYZERS =~ /retire.js/
       exists:
         - '{package.json,*/package.json,*/*/package.json}'
 
@@ -71,11 +58,11 @@ release:
   stage: release
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v/'
-  before_script:
+  script:
     - echo '@drupal:registry=https://registry.npmjs.org/' > ~/.npmrc
     - echo '//registry.npmjs.org/:_authToken=${NPM_ACCESS_TOKEN}' >> ~/.npmrc
-  script:
-    - npm install
-    - npm version $(echo ${CI_COMMIT_TAG} | cut -c2-) --no-git-tag-version
-    - npm run build
-    - npm publish --access public
+    - yarn install --skip-builds
+    - yarn build
+    - yarn docs > README.md
+    - yarn version $(echo ${CI_COMMIT_TAG} | cut -c2-) --immediate
+    - yarn npm publish --access public

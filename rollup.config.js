@@ -2,13 +2,9 @@ import { terser } from 'rollup-plugin-terser';
 import buble from '@rollup/plugin-buble';
 import pkg from './package.json';
 
-/**
- * Configuration for non minified files to keep documentation for IDE auto
- * completion.
- */
-const banner = `/*! @drupal/once - v${pkg.version} - ${
-  new Date().toJSON().split('T')[0]
-} */`;
+const version = pkg.version ?? 'DEV';
+const date = new Date().toJSON().split('T')[0];
+const banner = `/*! ${pkg.name} - v${version} - ${date} */`;
 
 export default [
   {

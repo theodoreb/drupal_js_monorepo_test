@@ -7,9 +7,7 @@ import { expect, assert } from '@open-wc/testing';
 import once from '../src/once';
 
 function expectArrayOfLength(result, len) {
-  return expect(result)
-    .to.be.an('array')
-    .with.lengthOf(len);
+  return expect(result).to.be.an('array').with.lengthOf(len);
 }
 
 describe('once', () => {
