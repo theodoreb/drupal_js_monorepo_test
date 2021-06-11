@@ -62,7 +62,7 @@ release:
     - echo '@drupal:registry=https://registry.npmjs.org/' > ~/.npmrc
     - echo '//registry.npmjs.org/:_authToken=${NPM_ACCESS_TOKEN}' >> ~/.npmrc
     - yarn install --skip-builds
-    - yarn build
     - yarn docs > README.md
     - yarn version $(echo ${CI_COMMIT_TAG} | cut -c2-) --immediate
+    - yarn build
     - yarn npm publish --access public
