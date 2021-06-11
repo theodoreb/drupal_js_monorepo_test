@@ -1,3 +1,9 @@
+variables:
+  # Necessary for `yarn version` to work.
+  # @see https://yarnpkg.com/features/release-workflow/#commit-history
+  # @see https://docs.gitlab.com/ee/ci/pipelines/settings.html#git-shallow-clone
+  GIT_DEPTH: 0
+
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
