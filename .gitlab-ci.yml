@@ -1,9 +1,3 @@
-variables:
-  # Necessary for `yarn version` to work.
-  # @see https://yarnpkg.com/features/release-workflow/#commit-history
-  # @see https://docs.gitlab.com/ee/ci/pipelines/settings.html#git-shallow-clone
-  GIT_DEPTH: 0
-
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
@@ -64,6 +58,12 @@ release:
   stage: release
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v/'
+  variables:
+    # Necessary for `yarn version` to work.
+    # @see https://yarnpkg.com/features/release-workflow/#commit-history
+    # @see https://docs.gitlab.com/ee/ci/pipelines/settings.html#git-shallow-clone
+    GIT_DEPTH: '0'
+    GIT_STRATEGY: 'clone'
   script:
     - apk add git
     - echo '@drupal:registry=https://registry.npmjs.org/' > ~/.npmrc
