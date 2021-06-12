@@ -66,8 +66,8 @@ release:
     GIT_STRATEGY: 'clone'
   script:
     - apk add git
-    - echo '@drupal:registry=https://registry.npmjs.org/' > ~/.npmrc
-    - echo '//registry.npmjs.org/:_authToken=${NPM_ACCESS_TOKEN}' >> ~/.npmrc
+    - yarn config set npmRegistryServer 'https://registry.npmjs.org/'
+    - yarn config set npmAuthToken '${NPM_ACCESS_TOKEN}'
     - yarn install --skip-builds
     - yarn docs > README.md
     - yarn version $(echo ${CI_COMMIT_TAG} | cut -c2-) --immediate
