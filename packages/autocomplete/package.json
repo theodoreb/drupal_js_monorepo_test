@@ -1,0 +1,47 @@
+{
+  "name": "@drupal/autocomplete",
+  "title": "Accessible Autocomplete",
+  "description": "",
+  "keywords": [
+    "autocomplete",
+    "drupal",
+    "form"
+  ],
+  "homepage": "https://www.drupal.org/project/a11y_autocomplete",
+  "exports": {
+    "import": "src/a11y.autocomplete.js"
+  },
+  "browser": "dist/a11y.autocomplete.js",
+  "files": [
+    "dist",
+    "src",
+    "SECURITY.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.drupalcode.org/project/a11y_autocomplete.git"
+  },
+  "bugs": {
+    "url": "https://www.drupal.org/project/issues/a11y_autocomplete"
+  },
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "express": "^4.17.1",
+    "geckodriver": "^2.0.0",
+    "json-server": "^0.16.3",
+    "nightwatch": "^1.7.2",
+    "prettier": "^2.3.0"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files --delete-dir-on-start",
+    "test": "nightwatch",
+    "lint": "yarn eslint && prettier --check .",
+    "eslint": "eslint . --ext .js --max-warnings=0 --ignore-path=.gitignore",
+    "prettier": "prettier --write ."
+  }
+}
