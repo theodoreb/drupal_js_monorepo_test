@@ -1,0 +1,17 @@
+{{#module}}
+# {{ name }}
+{{ description }}
+
+## Examples
+{{#each examples}}
+```html
+{{{ this }}}
+```
+{{/each}}
+{{/module}}
+
+## API
+
+{{#globals}}
+{{>docs}}
+{{/globals}}

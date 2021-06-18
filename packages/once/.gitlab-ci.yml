@@ -1,0 +1,75 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $CI_MERGE_REQUEST_IID
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+
+image: node:current-alpine3.13
+
+stages:
+  - test
+  - release
+
+lint:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  stage: test
+  script:
+    - yarn install --immutable --immutable-cache --check-cache
+    - yarn lint
+
+test:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  stage: test
+  image: mcr.microsoft.com/playwright:focal
+  script:
+    - yarn install --immutable --immutable-cache --check-cache
+    - yarn build
+    - yarn test
+
+audit:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $CI_MERGE_REQUEST_IID
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+  stage: test
+  script:
+    - yarn npm audit --severity low
+
+retire-js-dependency_scanning:
+  stage: test
+  rules:
+    - if: $DEPENDENCY_SCANNING_DISABLED
+      when: never
+    - if:
+        ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "push" || $CI_MERGE_REQUEST_IID) &&
+        $GITLAB_FEATURES =~ /\bdependency_scanning\b/ &&
+        $DS_DEFAULT_ANALYZERS =~ /retire.js/
+      exists:
+        - '{package.json,*/package.json,*/*/package.json}'
+
+release:
+  stage: release
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v/'
+  variables:
+    # Necessary for `yarn version` to work.
+    # @see https://yarnpkg.com/features/release-workflow/#commit-history
+    # @see https://docs.gitlab.com/ee/ci/pipelines/settings.html#git-shallow-clone
+    GIT_DEPTH: '0'
+    GIT_STRATEGY: 'clone'
+  script:
+    - apk add git
+    - yarn config set npmRegistryServer 'https://registry.npmjs.org/'
+    - yarn config set npmAuthToken '${NPM_ACCESS_TOKEN}'
+    - yarn install --skip-builds
+    - yarn docs > README.md
+    - yarn version $(echo ${CI_COMMIT_TAG} | cut -c2-) --immediate
+    - yarn build
+    - yarn npm publish --access public
