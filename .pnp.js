@@ -37,7 +37,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["commitizen", "npm:4.2.4"]
+            ["commitizen", "npm:4.2.4"],
+            ["cz-conventional-changelog", "npm:3.3.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -373,6 +374,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["word-wrap", "npm:1.2.3"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:3.3.0", {
+          "packageLocation": "./.yarn/cache/cz-conventional-changelog-npm-3.3.0-46c1d2629a-aa696ecb99.zip/node_modules/cz-conventional-changelog/",
+          "packageDependencies": [
+            ["cz-conventional-changelog", "npm:3.3.0"],
+            ["@commitlint/load", "npm:13.0.0"],
+            ["chalk", "npm:2.4.2"],
+            ["commitizen", "npm:4.2.4"],
+            ["conventional-commit-types", "npm:3.0.0"],
+            ["lodash.map", "npm:4.6.0"],
+            ["longest", "npm:2.0.1"],
+            ["word-wrap", "npm:1.2.3"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["dedent", [
@@ -407,7 +422,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["drupal_js", "workspace:."],
-            ["commitizen", "npm:4.2.4"]
+            ["commitizen", "npm:4.2.4"],
+            ["cz-conventional-changelog", "npm:3.3.0"]
           ],
           "linkType": "SOFT",
         }]
