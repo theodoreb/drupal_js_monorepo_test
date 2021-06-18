@@ -1,0 +1,3 @@
+# Supress diffs in these files and folders in GitLab
+.yarn/* -diff
+.pnp.js -diff

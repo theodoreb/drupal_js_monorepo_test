@@ -1,0 +1,15 @@
+{
+  "name": "drupal_js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "commitizen": "^4.2.4"
+  }
+}
