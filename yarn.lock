@@ -1315,6 +1315,8 @@ __metadata:
     prettier: ^2.3.0
     rollup: ^2.50.5
     rollup-plugin-terser: ^7.0.2
+    semantic-release: ^17.4.4
+    semantic-release-monorepo: ^7.0.5
   languageName: unknown
   linkType: soft
 

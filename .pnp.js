@@ -2225,7 +2225,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:3d558c7e5c1b75eefc13e10d43231399d108ea5834feaa65165eb1ef83a1f47eaabfdd43176fe66284c6c337db45b573976e5b8b3cae278a4a4496e00475f569#npm:8.3.0"],
             ["prettier", "npm:2.3.1"],
             ["rollup", "npm:2.52.1"],
-            ["rollup-plugin-terser", "virtual:d36b629f58ae55892c60dc68e7c999ff663f7eb65a631024d15b3960d81fe39775bbf41d1c8ae1c08a106e2d92119226145ce68feca879a5d2e0617608331503#npm:7.0.2"]
+            ["rollup-plugin-terser", "virtual:d36b629f58ae55892c60dc68e7c999ff663f7eb65a631024d15b3960d81fe39775bbf41d1c8ae1c08a106e2d92119226145ce68feca879a5d2e0617608331503#npm:7.0.2"],
+            ["semantic-release", "npm:17.4.4"],
+            ["semantic-release-monorepo", "virtual:abada1bbcef8f22c1c184224eb1d61574bf92837d2ecec6d4ea29f6e551a25df7803311ea0b223917d244e9b3639e40dca204b89fe64c131547eac89d50205db#npm:7.0.5"]
           ],
           "linkType": "SOFT",
         }]
