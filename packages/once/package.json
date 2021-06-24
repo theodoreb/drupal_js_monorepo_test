@@ -2,7 +2,7 @@
   "name": "@drupal/once",
   "title": "once",
   "description": "Act on elements only once.",
-  "version": "",
+  "version": "1.0.1",
   "keywords": [
     "drupal",
     "dom"
