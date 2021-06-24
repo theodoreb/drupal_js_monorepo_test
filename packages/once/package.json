@@ -17,10 +17,6 @@
     "src",
     "SECURITY.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://git.drupalcode.org/project/once.git"
-  },
   "bugs": {
     "url": "https://www.drupal.org/project/issues/once"
   },
@@ -54,5 +50,16 @@
     "web-test-runner": "web-test-runner \"test/*.test.html\" --node-resolve --playwright",
     "//": "We can't call jsdoc directly because of requizzle https://github.com/jsdoc/jsdoc/issues/1840",
     "docs": "npx --package=jsdoc-to-markdown jsdoc2md --template docs/README.hbs --heading-depth 3 --files src/once.js"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "extends": "semantic-release-monorepo",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/git"
+    ]
   }
 }
