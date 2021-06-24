@@ -46,7 +46,7 @@ const wsRE = /[\11\12\14\15\40]+/;
  */
 const attrName = 'data-once';
 
-// change
+// fix
 
 /**
  * Shortcut to access the html element.
